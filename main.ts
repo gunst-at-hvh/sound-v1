@@ -1,3 +1,9 @@
+/**
+ * Pseudo-Events für Lautstärke
+ * Calliope mini V1 kompatibel
+ * Didaktische Version für Schüler
+ */
+
 namespace input {
 
     let wasLoud = false
@@ -22,6 +28,7 @@ namespace input {
         basic.forever(function () {
             let isLoud = input.soundLevel() > threshold
 
+            // Flanke: leise → laut
             if (isLoud && !wasLoud) {
                 handler()
             }
@@ -42,6 +49,7 @@ namespace input {
         basic.forever(function () {
             let isLoud = input.soundLevel() > threshold
 
+            // Flanke: laut → leise
             if (!isLoud && wasLoud) {
                 handler()
             }
