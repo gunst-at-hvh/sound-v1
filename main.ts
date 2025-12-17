@@ -1,5 +1,5 @@
 /**
- * Sound-Events Extension angepasst an Tutorial
+ * Sound-Events Extension angepasst an Lärm-Alarm Tutorial
  * Calliope mini V1
  */
 
@@ -25,11 +25,9 @@ namespace sound {
     //% group="Sound-Alarm"
     export function checkSound() {
         let current = input.soundLevel() > threshold
-        // Flanke: leise → laut
         if (current && !wasLoud) {
             if (_onLoud) _onLoud()
         }
-        // Flanke: laut → leise
         if (!current && wasLoud) {
             if (_onQuiet) _onQuiet()
         }
