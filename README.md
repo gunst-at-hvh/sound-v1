@@ -1,21 +1,29 @@
-# Sound Events (Calliope mini V1)
+# Sound-Events Extension
 
-Diese Erweiterung stellt einfache Lautstärke-Events für den Unterricht bereit.
+Stabile Sound-Events für Calliope mini V1.  
+Blöcke:
 
-## Blöcke
+- `setze Schwellenwert auf`
+- `prüfe Lautstärke`
+- `wenn laut`
+- `wenn ruhig`
 
-- `zeige Lautstärke`: Zeigt den aktuellen Mikrofonwert (0–255)  
-- `wenn Lautstärke über [x] steigt`: Reagiert auf laute Geräusche  
-- `wenn Lautstärke unter [x] fällt`: Reagiert, wenn es leiser wird  
+Kategorie: **Input / Eingabe**
 
-## Didaktik
+---
 
-- Schüler können zuerst die Lautstärke testen und experimentell einen Schwellenwert wählen.  
-- Danach starten sie ihr Event-Programm mit dem selbst gefundenen Wert.  
-- Die Blöcke funktionieren wie echte Events, intern aber polling-basiert.
+**Verwendung:**
 
-## Kompatibilität
+```ts
+sound.setSoundThreshold(128)
+basic.forever(() => sound.checkSound())
 
-✔ Calliope mini V1  
-✔ MakeCode  
-✘ Keine echten Hardware-Interrupts
+sound.onLoud(() => {
+    basic.showIcon(IconNames.Angry)
+    basic.setLedColor(0xff0000)
+})
+
+sound.onQuiet(() => {
+    basic.clearScreen()
+    basic.turnRgbLedOff()
+})
