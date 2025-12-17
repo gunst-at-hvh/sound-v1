@@ -1,18 +1,13 @@
-/**
- * Stabile Sound-Events für Calliope mini V1
- * Blöcke sichtbar in Input/Eingabe
- */
-
 namespace sound {
 
     let threshold = 30
-    let wasLoud = false
+    let wasAbove = false
 
-    let onLoudHandler: (() => void) | null = null
-    let onQuietHandler: (() => void) | null = null
+    let aboveHandler: (() => void) | null = null
+    let belowHandler: (() => void) | null = null
 
     /**
-     * Setzt den Schwellenwert für Lautstärke
+     * Setzt den Schwellenwert
      */
     //% block="setze Schwellenwert auf %value"
     //% blockNamespace="input"
@@ -21,43 +16,41 @@ namespace sound {
     }
 
     /**
-     * Prüft die aktuelle Lautstärke
+     * Prüft die Lautstärke
      */
     //% block="prüfe Lautstärke"
     //% blockNamespace="input"
     export function checkSound() {
-        let loud = input.soundLevel() > threshold
+        let current = input.soundLevel()
 
-        if (loud && !wasLoud) {
-            if (onLoudHandler) {
-                onLoudHandler()
-            }
+        // Lautstärke steigt über Schwellenwert
+        if (current > threshold && !wasAbove) {
+            if (aboveHandler) aboveHandler()
         }
 
-        if (!loud && wasLoud) {
-            if (onQuietHandler) {
-                onQuietHandler()
-            }
+        // Lautstärke fällt unter Schwellenwert
+        if (current <= threshold && wasAbove) {
+            if (belowHandler) belowHandler()
         }
 
-        wasLoud = loud
+        wasAbove = current > threshold
     }
 
     /**
-     * Event, wenn laut
+     * Wenn Lautstärke steigt über Schwellenwert
      */
-    //% block="wenn laut"
+    //% block="wenn Lautstärke steigt über Schwellenwert"
     //% blockNamespace="input"
-    export function onLoud(handler: () => void) {
-        onLoudHandler = handler
+    export function onAbove(handler: () => void) {
+        aboveHandler = handler
     }
 
     /**
-     * Event, wenn ruhig
+     * Wenn Lautstärke fällt unter Schwellenwert
      */
-    //% block="wenn ruhig"
+    //% block="wenn Lautstärke fällt unter Schwellenwert"
     //% blockNamespace="input"
-    export function onQuiet(handler: () => void) {
-        onQuietHandler = handler
+    export function onBelow(handler: () => void) {
+        belowHandler = handler
     }
 }
