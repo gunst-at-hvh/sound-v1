@@ -37,7 +37,7 @@ namespace sound {
     }
 
     /**
-     * Wenn Lautstärke steigt über Schwellenwert
+     * Event: wenn Lautstärke steigt über Schwellenwert
      */
     //% block="wenn Lautstärke steigt über Schwellenwert"
     //% blockNamespace="input"
@@ -46,7 +46,7 @@ namespace sound {
     }
 
     /**
-     * Wenn Lautstärke fällt unter Schwellenwert
+     * Event: wenn Lautstärke fällt unter Schwellenwert
      */
     //% block="wenn Lautstärke fällt unter Schwellenwert"
     //% blockNamespace="input"
