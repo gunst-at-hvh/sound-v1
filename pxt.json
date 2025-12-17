@@ -1,3 +1,12 @@
-"files": [
-  "main.ts"
-]
+{
+  "name": "sound-events",
+  "version": "0.0.1",
+  "description": "Didaktische Sound-Events für Calliope mini V1 (laut / leise)",
+  "dependencies": {
+    "core": "*"
+  },
+  "files": [
+    "main.ts"
+  ],
+  "public": true
+}
