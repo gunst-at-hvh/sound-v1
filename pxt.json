@@ -1,7 +1,7 @@
 {
   "name": "sound-events",
-  "version": "0.0.1",
-  "description": "Einfache, stabile Sound-Events für Calliope mini V1 (erste funktionierende Version)",
+  "version": "0.0.2",
+  "description": "Stabile Sound-Events für Calliope mini V1 (erste funktionierende Version mit Default 30)",
   "dependencies": {
     "core": "*"
   },
