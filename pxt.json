@@ -1,5 +1,5 @@
 {
-  "name": "sound-events",
+  "name": "sound-events-v1",
   "version": "0.0.1",
   "description": "Didaktische Sound-Events für Calliope mini V1 (laut / leise)",
   "dependencies": {
@@ -8,5 +8,6 @@
   "files": [
     "main.ts"
   ],
+  "supportedTargets": ["calliope-mini"],
   "public": true
 }
