@@ -1,18 +1,18 @@
 /**
- * Sound-Events Extension angepasst an Lärm-Alarm Tutorial
+ * Sound-Events Extension exakt für Lärm-Alarm Tutorial
  * Calliope mini V1
  */
 
 namespace sound {
 
-    let threshold = 30
+    let threshold = 0
     let wasLoud = false
 
     /**
-     * Setzt den Schwellenwert
+     * Setzt den Schwellenwert (Schüler tragen eigenen Wert ein)
      */
-    //% block="setze Schwellenwert für laut auf %value"
-    //% value.min=0 value.max=255 value.defl=30
+    //% block="setze Schwellenwert auf %value"
+    //% value.min=0 value.max=255
     //% group="Sound-Alarm"
     export function setSoundThreshold(value: number) {
         threshold = value
@@ -38,7 +38,7 @@ namespace sound {
     let _onQuiet: (() => void) | null = null
 
     /**
-     * Event: wenn Lautstärke über Schwellenwert steigt
+     * Event: wenn Lautstärke über Schwelle steigt
      */
     //% block="wenn laut"
     //% group="Sound-Alarm"
@@ -47,7 +47,7 @@ namespace sound {
     }
 
     /**
-     * Event: wenn Lautstärke unter Schwellenwert fällt
+     * Event: wenn Lautstärke unter Schwelle fällt
      */
     //% block="wenn ruhig"
     //% group="Sound-Alarm"
