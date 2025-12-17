@@ -1,7 +1,7 @@
 {
-  "name": "sound-events-tutorial",
-  "version": "0.0.3",
-  "description": "Sound-Events Extension für Calliope mini V1, exakt angepasst an Lärm-Alarm Tutorial",
+  "name": "sound-events",
+  "version": "0.0.1",
+  "description": "Einfache Sound-Events für Calliope mini V1 (stabile Erstversion)",
   "dependencies": {
     "core": "*"
   },
