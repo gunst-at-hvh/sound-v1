@@ -1,61 +1,63 @@
 /**
- * Pseudo-Events für Lautstärke
- * Calliope mini V1 kompatibel
- * Didaktische Version für Schüler
+ * Stabile Sound-Events für Calliope mini V1
+ * Blöcke sichtbar in Input/Eingabe
  */
 
-namespace input {
+namespace sound {
 
+    let threshold = 30
     let wasLoud = false
 
+    let onLoudHandler: (() => void) | null = null
+    let onQuietHandler: (() => void) | null = null
+
     /**
-     * Zeigt die aktuelle Lautstärke (0–255)
+     * Setzt den Schwellenwert für Lautstärke
      */
-    //% block="zeige Lautstärke"
-    //% group="Lautstärke"
-    export function showSoundLevel() {
-        basic.showNumber(input.soundLevel())
+    //% block="setze Schwellenwert auf %value"
+    //% blockNamespace="input"
+    export function setSoundThreshold(value: number) {
+        threshold = value
     }
 
     /**
-     * Wird ausgelöst, wenn die Lautstärke über die Schwelle steigt
+     * Prüft die aktuelle Lautstärke
      */
-    //% block="wenn Lautstärke über %threshold steigt"
-    //% threshold.min=0 threshold.max=255 threshold.defl=30
-    //% group="Lautstärke"
-    export function onLoud(threshold: number, handler: () => void) {
+    //% block="prüfe Lautstärke"
+    //% blockNamespace="input"
+    export function checkSound() {
+        let loud = input.soundLevel() > threshold
 
-        basic.forever(function () {
-            let isLoud = input.soundLevel() > threshold
-
-            // Flanke: leise → laut
-            if (isLoud && !wasLoud) {
-                handler()
+        if (loud && !wasLoud) {
+            if (onLoudHandler) {
+                onLoudHandler()
             }
+        }
 
-            wasLoud = isLoud
-            basic.pause(50)
-        })
+        if (!loud && wasLoud) {
+            if (onQuietHandler) {
+                onQuietHandler()
+            }
+        }
+
+        wasLoud = loud
     }
 
     /**
-     * Wird ausgelöst, wenn die Lautstärke unter die Schwelle fällt
+     * Event, wenn laut
      */
-    //% block="wenn Lautstärke unter %threshold fällt"
-    //% threshold.min=0 threshold.max=255 threshold.defl=30
-    //% group="Lautstärke"
-    export function onQuiet(threshold: number, handler: () => void) {
+    //% block="wenn laut"
+    //% blockNamespace="input"
+    export function onLoud(handler: () => void) {
+        onLoudHandler = handler
+    }
 
-        basic.forever(function () {
-            let isLoud = input.soundLevel() > threshold
-
-            // Flanke: laut → leise
-            if (!isLoud && wasLoud) {
-                handler()
-            }
-
-            wasLoud = isLoud
-            basic.pause(50)
-        })
+    /**
+     * Event, wenn ruhig
+     */
+    //% block="wenn ruhig"
+    //% blockNamespace="input"
+    export function onQuiet(handler: () => void) {
+        onQuietHandler = handler
     }
 }
