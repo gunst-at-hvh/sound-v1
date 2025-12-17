@@ -1,15 +1,13 @@
-/**
- * Sound-Events Extension exakt für Lärm-Alarm Tutorial
- * Calliope mini V1
- */
-
 namespace sound {
 
     let threshold = 0
     let wasLoud = false
 
+    let loudHandler: (() => void) | null = null
+    let quietHandler: (() => void) | null = null
+
     /**
-     * Setzt den Schwellenwert (Schüler tragen eigenen Wert ein)
+     * Setzt den Schwellenwert
      */
     //% block="setze Schwellenwert auf %value"
     //% value.min=0 value.max=255
@@ -19,39 +17,43 @@ namespace sound {
     }
 
     /**
-     * Prüft die Lautstärke (muss in basic.forever aufgerufen werden)
+     * Muss in basic.forever aufgerufen werden
      */
     //% block="prüfe Lautstärke"
     //% group="Sound-Alarm"
     export function checkSound() {
-        let current = input.soundLevel() > threshold
-        if (current && !wasLoud) {
-            if (_onLoud) _onLoud()
+        const isLoud = input.soundLevel() > threshold
+
+        if (isLoud && !wasLoud) {
+            if (loudHandler) {
+                loudHandler()
+            }
         }
-        if (!current && wasLoud) {
-            if (_onQuiet) _onQuiet()
+
+        if (!isLoud && wasLoud) {
+            if (quietHandler) {
+                quietHandler()
+            }
         }
-        wasLoud = current
+
+        wasLoud = isLoud
     }
 
-    let _onLoud: (() => void) | null = null
-    let _onQuiet: (() => void) | null = null
-
     /**
-     * Event: wenn Lautstärke über Schwelle steigt
+     * Event: wenn laut
      */
     //% block="wenn laut"
     //% group="Sound-Alarm"
     export function onLoud(handler: () => void) {
-        _onLoud = handler
+        loudHandler = handler
     }
 
     /**
-     * Event: wenn Lautstärke unter Schwelle fällt
+     * Event: wenn ruhig
      */
     //% block="wenn ruhig"
     //% group="Sound-Alarm"
     export function onQuiet(handler: () => void) {
-        _onQuiet = handler
+        quietHandler = handler
     }
 }
