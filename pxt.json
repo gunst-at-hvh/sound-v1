@@ -1,13 +1,12 @@
 {
   "name": "sound-events",
-  "version": "0.0.2",
-  "description": "Stabile Sound-Events für Calliope mini V1 (erste funktionierende Version mit Default 30)",
+  "version": "0.0.1",
+  "description": "Didaktische Sound-Events für Calliope mini V1 (laut / leise)",
   "dependencies": {
     "core": "*"
   },
   "files": [
     "main.ts"
   ],
-  "supportedTargets": ["calliope-mini"],
   "public": true
 }
